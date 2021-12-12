@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { DataService } from '../data.service';
+import { Comments } from '../validate/validate';
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations:[
 
-    trigger('goals', [
+    trigger('comments', [
       transition('* => *', [
         query(':enter', style({ opacity: 0 }), {optional: true}),
 
@@ -35,29 +38,69 @@ import { DataService } from '../data.service';
 export class HomeComponent implements OnInit {
 
   itemCount: number;
-  btnText: string = `Add an Item`;
-  goalText: string = `My first life goal`;
-  goals = [`My first life goal`,`I want to climb a mountain`, `Go ice skiing`];
+  btnText: string = `Add comment`;
+  nameText: string = ``;
+  commentText: string = ``;
+  comments = [];
   
   constructor(private _data: DataService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this._data.getComments()
+    .subscribe((data: any) => {
+     //alert(JSON.stringify(data.users));
+     //console.log(JSON.stringify(data.users));
+
+      this.comments = data.users;
+      this._data.changeGoal(this.comments);
+    }); setTimeout(() => {
+      this.itemCount = this.comments.length;
+      this._data.comment.subscribe(res=> this.comments = res);
+      this._data.changeGoal(this.comments);
+    }, 2000);
     
-    this._data.goal.subscribe(res => this.goals = res);
-    this.itemCount = this.goals.length;
-    this._data.changeGoal(this.goals);
-  }
-  
+  } 
+
+
   addItem(){
-    this.goals.push(this.goalText);
-    this.goalText = ``;
-    this.itemCount = this.goals.length;
-    this._data.changeGoal(this.goals);
-  }
 
+    if(Comments(this.nameText,this.commentText)){
+      var payload = {
+        name : this.nameText,
+        email : "leonardo.m2349@gmail.com",
+        age: "21",
+        comments: this.commentText
+      }
+  
+  
+      this._data.postComment(payload)
+      .subscribe((data: any) => {
+     
+        this.comments.push(payload);
+        this.nameText='';
+        this.commentText='';
+        this.itemCount=this.comments.length;
+        this._data.changeGoal(this.comments);
+  
+     });
+     setTimeout(() => {
+       alert(`¡${this.nameText} your comment was successful!`);
+    }, 2500);
+    }
+
+    if(!Comments(this.nameText,this.commentText)){
+      alert(`Please check your information!`);
+    }
+
+    
+
+   
+
+   
+  }
   removeItem(i){
-    this.goals.splice(i,1);
-    this._data.changeGoal(this.goals);
-  }
-
+    this.comments.splice(i,  1); 
+    this._data.changeGoal(this.comments); 
+     
+  } 
 }

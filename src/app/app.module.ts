@@ -8,14 +8,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { PokedexComponent } from './pokedex/pokedex.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { NewPokemonComponent } from './new-pokemon/new-pokemon.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    NavbarComponent,
+    NotFoundPageComponent,
+    PokedexComponent,
+    NewPokemonComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

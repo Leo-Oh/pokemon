@@ -1,34 +1,49 @@
 .container {
+    border: 0;
     display: grid;
-    grid-template-columns: 50% auto;
+    grid-template-columns: 80% auto;
+   
+}
+.container-list {
+    display: grid;
+    grid-template-columns: 100% auto;
 }
 .col {
-    padding: .4em 1.3em;
+    padding: 1em 1.3em;
 }
 .color-dark {
-    background: #2885C4;
+    background: #1d62e4;
+    box-shadow: 2px 2px 2px 1px rgba(170, 167, 167, 0.9);
 }
 .color-light {
-    background: #57b3F1;
+    background: #0b38ff;
+    box-shadow: 2px 2px 2px 1px rgba(170, 167, 167, 0.9);
+
+    
 }
 input.txt {
   border: 0;
   padding: 1em;
-  width: 80%;
-  margin-bottom: 2em;
+  width: 100%;
+
+}
+
+.count-pokemons {
+  border: 0px;
+  padding: 1em;
 }
 input.btn {
-    border: 0;
-    display: block;
-    padding: 1em 3em;
-    background: #A5F883;
-    color: #003A61;
-    margin-bottom: 1em;
+    background: #fcff36;
+    color: #0b38ff;
     cursor: pointer;
+
+    border: 0;
+    padding: 1em;
+    width: 100%;
 }
 
 .life-container {
-    background: #3FA0E1;
+    background: #161515;
     padding: .5em;
     font-weight: bold;
     cursor: pointer;
