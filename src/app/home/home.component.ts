@@ -52,11 +52,11 @@ export class HomeComponent implements OnInit {
      //console.log(JSON.stringify(data.users));
 
       this.comments = data.users;
-      this._data.changeGoal(this.comments);
+      this._data.changeComments(this.comments);
     }); setTimeout(() => {
       this.itemCount = this.comments.length;
       this._data.comment.subscribe(res=> this.comments = res);
-      this._data.changeGoal(this.comments);
+      this._data.changeComments(this.comments);
     }, 2000);
     
   } 
@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
         this.nameText='';
         this.commentText='';
         this.itemCount=this.comments.length;
-        this._data.changeGoal(this.comments);
+        this._data.changeComments(this.comments);
   
      });
      setTimeout(() => {
@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
   }
   removeItem(i){
     this.comments.splice(i,  1); 
-    this._data.changeGoal(this.comments); 
+    this._data.changeComments(this.comments); 
      
   } 
 }

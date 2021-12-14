@@ -14,6 +14,8 @@ import { PokedexComponent } from './pokedex/pokedex.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NewPokemonComponent } from './new-pokemon/new-pokemon.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,9 @@ import { NewPokemonComponent } from './new-pokemon/new-pokemon.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
+    ReactiveFormsModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

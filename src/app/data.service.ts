@@ -21,23 +21,36 @@ export class DataService {
   
   constructor(private http: HttpClient) { }
 
-  changeGoal(comment){
+  changeComments(comment){
+    this.comments.next(comment)
+  }
+  changePokemon(comment){
     this.comments.next(comment)
   }
 
   //apiURL = 'http://localhost:8080';
   apiURL_Usuarios = 'http://34.125.177.106:8081/users-api';
-  apiURL_Pokemones = 'http://34.125.230.240:4000/api';
+  apiURL_Pokemones = 'http://34.125.230.240:4000/api/pokemon';
+ 
 
   // Http Options
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Content-Type':  'application/json',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Allow-Origin':'*',
       'Access-Control-Allow-Methods':'GET' 
       })
-  }  
+  };
+  httpOptionsPokemon = {
+    headers: new HttpHeaders({
+      
+      'Content-Type': 'multipart/form-data',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Allow-Methods':'GET' 
+      })
+  };  
 
   /**
    * ============================= 
@@ -54,9 +67,8 @@ export class DataService {
   }   
 
   postComment(payload): Observable<UserApi> {
-    console.log(`Estoy mandando ${payload}`);
-    console.log(`Y esto en el return ${JSON.stringify(payload)}`);
     return this.http.post<UserApi>(this.apiURL_Usuarios + '/user', JSON.stringify(payload), this.httpOptions)
+    
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -70,7 +82,7 @@ export class DataService {
    */
 
   getAllPokemons(): Observable<PokemonsApi> {
-    return this.http.get<PokemonsApi>(this.apiURL_Usuarios + '/pokemon', this.httpOptions)
+    return this.http.get<PokemonsApi>(this.apiURL_Pokemones , this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -78,7 +90,7 @@ export class DataService {
   } 
   
   getPokemonByID(id): Observable<PokemonsApi> {
-    return this.http.get<PokemonsApi>(this.apiURL_Usuarios + '/pokemon/' + id, this.httpOptions)
+    return this.http.get<PokemonsApi>(this.apiURL_Pokemones +`/${id}`, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -86,13 +98,16 @@ export class DataService {
   } 
 
   postPokemon(payload): Observable<PokemonsApi> {
-    return this.http.post<PokemonsApi>(this.apiURL_Usuarios + '/pokemon', JSON.stringify(payload), this.httpOptions)
+    console.log(payload);
+    console.log();
+    
+     return this.http.post<PokemonsApi>(this.apiURL_Pokemones , payload , this.httpOptionsPokemon)
     .pipe(
       retry(1),
       catchError(this.handleError)
     )
   }
-
+  
 
   // Error handling 
   handleError(error) {

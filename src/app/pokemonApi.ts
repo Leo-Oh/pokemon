@@ -1,13 +1,13 @@
 export class PokemonsApi {
-    name: string;
-    number: string;
-    description: string;
-    weight :string;
-    height: string;
-    gender: string;
-    category: string;
-    ability: string;
-    type: string;
-    debility: string;
-    image: string;
+  namepokemon : string;
+  numberpokemon : string;
+  descriptionpokemon : string;
+  weightpokemon : string;
+  heightpokemon : string;
+  genderpokemon : string;
+  categorypokemon : string;
+  abilitypokemon : string;
+  typepokemon : string;
+  debilitypokemon : string;
+  image: string;
   }
